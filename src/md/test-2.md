@@ -1,5 +1,6 @@
 ---
 title: testowesfasdf
+date: 2001-12-15T02:59:43.1Z
 description: hello-world
 slug: test-2
 ---

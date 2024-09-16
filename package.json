@@ -9,6 +9,7 @@
   "dependencies": {
     "@solidjs/router": "^0.14.1",
     "@solidjs/start": "^1.0.6",
+    "arktype": "^2.0.0-rc.8",
     "autoprefixer": "^10.4.19",
     "dompurify": "^3.1.6",
     "gray-matter": "^4.0.3",

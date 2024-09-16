@@ -1,10 +1,14 @@
-import { useParams, createAsync, cache } from "@solidjs/router";
+import { useParams, createAsync, cache, redirect } from "@solidjs/router";
 import { getMarkdownPosts } from "~/server/generateMd";
-import { For, Show } from "solid-js";
+import { For, Show, ErrorBoundary } from "solid-js";
 
 const getBlogPosts = cache(async () => {
   "use server";
-  return getMarkdownPosts();
+  try {
+    return getMarkdownPosts();
+  } catch (e) {
+    return redirect("/404");
+  }
 }, "blog posts");
 
 export const route = {
@@ -19,7 +23,7 @@ export default function BlogPost() {
   return (
     <div>
       {params.slug}
-      <Show when={post} fallback={<div>Loading...</div>}>
+      <Show when={post != undefined} fallback={<div>Loading...</div>}>
         {
           <article>
             <h1>{post.data.title}</h1>
