@@ -11,6 +11,13 @@ const CONTENT = path.join(ROOT, "src", "md");
 const window = new JSDOM("").window;
 const DOMPurify = createDOMPurify(window);
 
+const frontMatterSchema = {
+  title: "string",
+  date: "string",
+  description: "string",
+  slug: "string",
+};
+
 export function getMarkdownPosts() {
   const files = fs.readdirSync(CONTENT);
 

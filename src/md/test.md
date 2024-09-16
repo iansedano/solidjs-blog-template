@@ -1,6 +1,7 @@
 ---
 title: test
 description: hello-world
+slug: hello-world
 ---
 
 A communi observantia non est recedendum. Vivamus sagittis lacus vel augue laoreet rutrum faucibus. Nihilne te nocturnum praesidium Palati, nihil urbis vigiliae.
