@@ -28,7 +28,7 @@ export default function BlogPost() {
       <Show when={post != undefined} fallback={<div>Loading...</div>}>
         {
           <article>
-            <h1 class="text-3xl font-bold mb-8 text-center">
+            <h1 class="text-3xl font-bold my-8 text-center">
               {post.data.title}
             </h1>
 
