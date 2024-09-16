@@ -22,26 +22,34 @@ const frontMatterSchema = type({
   "keywords?": "string[]",
 });
 
-export function getMarkdownPosts() {
+type Post = {
+  data: Record<string, any>; // frontMatterSchema
+  content: string;
+  fileStem: string;
+};
+
+export function getMarkdownPosts(): Post[] {
   const files = fs.readdirSync(CONTENT);
 
-  return files.map((file) => {
-    const filePath = path.join(CONTENT, file);
-    const markdownFile = matter(fs.readFileSync(filePath, "utf8"));
+  return files
+    .map((file) => {
+      const filePath = path.join(CONTENT, file);
+      const markdownFile = matter(fs.readFileSync(filePath, "utf8"));
 
-    const out = frontMatterSchema(markdownFile.data);
-    if (out instanceof type.errors) {
-      console.log(out.summary);
-      throw new TypeError("Invalid front matter schema");
-    } else {
-      return {
-        ...markdownFile,
-        data: frontMatterSchema(markdownFile.data),
-        content: DOMPurify.sanitize(
-          marked.parse(markdownFile.content, { async: false })
-        ),
-        fileStem: path.basename(file, path.extname(file)),
-      };
-    }
-  });
+      const out = frontMatterSchema(markdownFile.data);
+      if (out instanceof type.errors) {
+        console.log(out.summary);
+        return undefined;
+      } else {
+        return {
+          ...markdownFile,
+          data: frontMatterSchema(markdownFile.data),
+          content: DOMPurify.sanitize(
+            marked.parse(markdownFile.content, { async: false })
+          ),
+          fileStem: path.basename(file, path.extname(file)),
+        };
+      }
+    })
+    .filter((x) => x !== undefined);
 }

@@ -19,6 +19,9 @@ export default function BlogPost() {
   const blogPosts = createAsync(() => getBlogPosts());
   const params = useParams();
   const post = blogPosts()?.find((post) => post.data.slug === params.slug);
+  if (post === undefined) {
+    return <div>Post not found</div>;
+  }
 
   return (
     <div>
