@@ -13,7 +13,7 @@ module.exports = {
             pre: {
               color: theme("colors.gray.900"),
               backgroundColor: theme("colors.gray.100"),
-              padding: "0.2em 0.4em",
+              padding: theme("spacing.3"),
               borderRadius: "0.25em",
             },
           },
