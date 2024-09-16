@@ -3,7 +3,8 @@ import fs from "fs";
 import path from "path";
 import { JSDOM } from "jsdom";
 import createDOMPurify from "dompurify";
-import { marked } from "marked";
+import Shiki from "@shikijs/markdown-it";
+import MarkdownIt from "markdown-it";
 import getProjectRoot from "./getProjectRoot";
 import { type } from "arktype";
 
@@ -28,6 +29,14 @@ type Post = {
   fileStem: string;
 };
 
+const md = MarkdownIt();
+
+md.use(
+  await Shiki({
+    theme: "monokai",
+  })
+);
+
 export function getMarkdownPosts(): Post[] {
   const files = fs.readdirSync(CONTENT);
 
@@ -45,7 +54,7 @@ export function getMarkdownPosts(): Post[] {
           ...markdownFile,
           data: frontMatterSchema(markdownFile.data),
           content: DOMPurify.sanitize(
-            marked.parse(markdownFile.content, { async: false })
+            md.render(markdownFile.content, { async: false })
           ),
           fileStem: path.basename(file, path.extname(file)),
         };
