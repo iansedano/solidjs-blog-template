@@ -24,14 +24,15 @@ export default function BlogPost() {
   }
 
   return (
-    <div>
-      {params.slug}
+    <div class="container mx-auto">
       <Show when={post != undefined} fallback={<div>Loading...</div>}>
         {
           <article>
-            <h1>{post.data.title}</h1>
-            <p>{post.data.description}</p>
-            <div innerHTML={post.content}></div>
+            <h1 class="text-3xl font-bold mb-8 text-center">
+              {post.data.title}
+            </h1>
+
+            <div class="prose mx-auto" innerHTML={post.content}></div>
           </article>
         }
       </Show>
