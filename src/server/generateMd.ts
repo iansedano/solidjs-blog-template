@@ -38,7 +38,7 @@ export function getMarkdownPosts(): Post[] {
 
       const out = frontMatterSchema(markdownFile.data);
       if (out instanceof type.errors) {
-        console.log(out.summary);
+        console.error(`${filePath}: ${out.summary}`);
         return undefined;
       } else {
         return {
