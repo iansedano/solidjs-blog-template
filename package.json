@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "vinxi dev",
     "build": "vinxi build",
-    "start": "vinxi start",
+    "start": "vinxi start"
   },
   "dependencies": {
     "@solidjs/router": "^0.14.1",
