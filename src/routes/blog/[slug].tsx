@@ -1,9 +1,11 @@
 import { useParams, createAsync, cache, redirect } from "@solidjs/router";
 import { getMarkdownPosts } from "~/server/generateMd";
 import { For, Show, ErrorBoundary } from "solid-js";
+import Post from "~/components/Post";
 
 const getBlogPosts = cache(async () => {
   "use server";
+  console.log("getting blog posts for post");
   try {
     return getMarkdownPosts();
   } catch (e) {
@@ -26,15 +28,7 @@ export default function BlogPost() {
   return (
     <div class="container mx-auto">
       <Show when={post != undefined} fallback={<div>Loading...</div>}>
-        {
-          <article>
-            <h1 class="text-3xl font-bold my-8 text-center">
-              {post.data.title}
-            </h1>
-
-            <div class="prose mx-auto" innerHTML={post.content}></div>
-          </article>
-        }
+        {<Post title={post.data.title} content={post.content} />}
       </Show>
     </div>
   );

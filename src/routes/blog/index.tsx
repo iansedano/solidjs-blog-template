@@ -1,4 +1,4 @@
-import { useParams, createAsync, cache } from "@solidjs/router";
+import { useParams, createAsync, cache, A } from "@solidjs/router";
 import { getMarkdownPosts } from "~/server/generateMd";
 import { For } from "solid-js";
 
@@ -20,7 +20,9 @@ export default function BlogPost() {
       <For each={blogPosts()}>
         {(blogPost) => (
           <li>
-            {blogPost.data.title} -- {blogPost.data.description}
+            <A href={`/blog/${blogPost.data.slug}`}>
+              {blogPost.data.title} -- {blogPost.data.description}
+            </A>
           </li>
         )}
       </For>
