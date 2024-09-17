@@ -25,12 +25,6 @@ const frontMatterSchema = type({
   "keywords?": "string[]",
 });
 
-type Post = {
-  data: Record<string, any>; // frontMatterSchema
-  content: string;
-  fileStem: string;
-};
-
 const md = MarkdownIt();
 
 md.use(

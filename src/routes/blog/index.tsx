@@ -1,11 +1,6 @@
 import { useParams, createAsync, cache, A } from "@solidjs/router";
-import { getMarkdownPosts } from "~/server/generateMd";
 import { For } from "solid-js";
-
-const getBlogPosts = cache(async () => {
-  "use server";
-  return getMarkdownPosts();
-}, "blog posts");
+import getBlogPosts from "~/server/getBlogPosts";
 
 export const route = {
   load: () => getBlogPosts(),
