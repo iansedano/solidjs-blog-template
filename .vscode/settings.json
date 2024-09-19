@@ -2,7 +2,7 @@
   "editor.quickSuggestions": {
     "strings": "on"
   },
-  "cSpell.words": ["arktype", "dompurify", "monokai", "shiki", "shikijs", "solidjs"],
+  "cSpell.words": ["arktype", "dompurify", "monokai", "shiki", "shikijs", "solidjs", "tseslint"],
   "files.associations": {
     "*.css": "tailwindcss"
   }

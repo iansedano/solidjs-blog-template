@@ -6,7 +6,7 @@ const getBlogPosts = cache(async () => {
   console.log("getting blog posts for post");
   try {
     return getMarkdownPosts();
-  } catch (e) {
+  } catch (_) {
     return redirect("/404");
   }
 }, "blog posts");

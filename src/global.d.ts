@@ -1,7 +1,7 @@
 /// <reference types="@solidjs/start/env" />
 
 type Post = {
-  data: Record<string, any>; // frontMatterSchema
+  data: Record<string, never>; // frontMatterSchema
   content: string;
   fileStem: string;
 };

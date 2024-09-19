@@ -1,4 +1,4 @@
-import { useParams, createAsync, cache, A } from "@solidjs/router";
+import { useParams, createAsync, A } from "@solidjs/router";
 import { For } from "solid-js";
 import getBlogPosts from "~/server/getBlogPosts";
 
