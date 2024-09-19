@@ -7,11 +7,11 @@ export default function Nav() {
 
   return (
     <nav class="bg-slate-200">
-      <ul class=" flex items-center justify-center p-3">
-        <li class={`border-b-2 ${active("/")} mx-1.5 sm:mx-6`}>
+      <ul class="flex items-center justify-center p-3">
+        <li class={`${active("/")} mx-1.5 border-b-2 sm:mx-6`}>
           <a href="/">Home</a>
         </li>
-        <li class={`border-b-2 ${active("/blog")} mx-1.5 sm:mx-6`}>
+        <li class={`${active("/blog")} mx-1.5 border-b-2 sm:mx-6`}>
           <a href="/blog">Blog</a>
         </li>
       </ul>
