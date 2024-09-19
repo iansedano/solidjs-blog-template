@@ -4,8 +4,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: "Inria Sans, sans-serif",
-        mono: "Courier Prime, monospace",
+        sans: "Atkinson Hyperlegible, sans-serif",
+        mono: "Inconsolata, monospace",
       },
       typography: (theme) => ({
         DEFAULT: {
@@ -17,7 +17,7 @@ module.exports = {
               borderRadius: "0.25em",
               scrollbarWidth: "thin",
               scrollbarColor: `${theme("colors.gray.400")} ${theme(
-                "colors.gray.700"
+                "colors.gray.700",
               )}`,
             },
           },
