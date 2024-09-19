@@ -30,7 +30,7 @@ const md = MarkdownIt();
 md.use(
   await Shiki({
     theme: "monokai",
-  })
+  }),
 );
 
 export function getMarkdownPosts(): Post[] {
@@ -49,9 +49,7 @@ export function getMarkdownPosts(): Post[] {
         return {
           ...markdownFile,
           data: frontMatterSchema(markdownFile.data),
-          content: DOMPurify.sanitize(
-            md.render(markdownFile.content, { async: false })
-          ),
+          content: DOMPurify.sanitize(md.render(markdownFile.content, { async: false })),
           fileStem: path.basename(file, path.extname(file)),
         };
       }

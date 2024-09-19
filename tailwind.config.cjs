@@ -16,9 +16,7 @@ module.exports = {
               padding: theme("spacing.3"),
               borderRadius: "0.25em",
               scrollbarWidth: "thin",
-              scrollbarColor: `${theme("colors.gray.400")} ${theme(
-                "colors.gray.700",
-              )}`,
+              scrollbarColor: `${theme("colors.gray.400")} ${theme("colors.gray.700")}`,
             },
           },
         },
