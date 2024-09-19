@@ -9,7 +9,7 @@ export default function Nav() {
 
   return (
     <nav class="bg-slate-200">
-      <ul class="container flex items-center p-3">
+      <ul class=" flex items-center justify-center p-3">
         <li class={`border-b-2 ${active("/")} mx-1.5 sm:mx-6`}>
           <a href="/">Home</a>
         </li>
