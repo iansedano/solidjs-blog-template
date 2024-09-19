@@ -3,7 +3,7 @@ import { getMarkdownPosts } from "~/server/generateMd";
 
 const getBlogPosts = cache(async () => {
   "use server";
-  console.log("getting blog posts for post");
+  console.log("getting blog posts");
   try {
     return getMarkdownPosts();
   } catch (_) {
