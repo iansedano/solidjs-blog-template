@@ -22,7 +22,10 @@ export default function BlogPost({ data }: { data: Promise<Post[]> }) {
             (post: Post) => post.data.slug === params.slug
           );
           return (
-            <PostComponent title={post?.data.title} content={post?.content} />
+            <PostComponent
+              title={post?.data.title}
+              content={post?.content ?? ""}
+            />
           );
         })()}
       </Show>
