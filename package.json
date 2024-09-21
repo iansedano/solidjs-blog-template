@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "scripts": {
     "dev": "vinxi dev",
+    "dev-host": "vinxi dev --host",
     "build": "vinxi build",
     "start": "vinxi start",
     "prepare": "husky",
