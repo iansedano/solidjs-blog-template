@@ -1,6 +1,7 @@
 {
-  "name": "example-with-tailwindcss",
+  "name": "solidstart-blog-template",
   "type": "module",
+  "version": "0.1.0",
   "scripts": {
     "dev": "vinxi dev",
     "build": "vinxi build",
