@@ -27,14 +27,14 @@ const frontMatterSchema = type({
 
 const md = MarkdownIt();
 
-md.use(
-  await Shiki({
-    theme: "monokai",
-  }),
-);
-
-export function getMarkdownPosts(): Post[] {
+export async function getMarkdownPosts(): Promise<Post[]> {
   const files = fs.readdirSync(CONTENT);
+
+  md.use(
+    await Shiki({
+      theme: "monokai",
+    }),
+  );
 
   return files
     .map((file) => {
