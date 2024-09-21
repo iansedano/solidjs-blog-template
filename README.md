@@ -4,8 +4,8 @@ This is a basic blog template for SolidStart in development.
 
 The requirements for this template are:
 
-- A simple, clean and adaptable design
-- A separate markdown file for each blog post, without the need for MDX. Just plain markdown files with YAML front matter.
+- A simple, clean and adaptable design using Tailwind CSS.
+- A separate markdown file for each blog post, without the need for writing in MDX. Just plain markdown files with YAML front matter.
 - Should be able to add new blog posts by just adding a markdown file to designated folder.
 - Include syntax highlighting for code blocks.
 - Configurable for things such as themes for syntax highlighting.
