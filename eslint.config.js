@@ -4,6 +4,7 @@ import tseslint from "typescript-eslint";
 import jsxA11y from "eslint-plugin-jsx-a11y";
 
 export default [
+  { ignores: ["node_modules/", "dist/", "build/", ".output/", ".vinxi/"] },
   { files: ["**/*.{js,mjs,cjs,ts,tsx}"] },
   { languageOptions: { globals: globals.browser } },
   pluginJs.configs.recommended,
