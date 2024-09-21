@@ -19,7 +19,7 @@ export default function BlogPost({ data }: { data: Promise<Post[]> }) {
       <Show when={blogPosts()} fallback={<div>Loading...</div>}>
         {(() => {
           const post = blogPosts()?.find((post: Post) => post.data.slug === params.slug);
-          return <PostComponent title={post?.data.title} content={post?.content ?? ""} />;
+          return <PostComponent title={post?.data.title ?? ""} content={post?.content ?? ""} />;
         })()}
       </Show>
     </div>
