@@ -10,17 +10,28 @@ export default function BlogPost() {
   const blogPosts = createAsync(() => getBlogPosts());
   const params = useParams();
   return (
-    <div>
+    <ul class="container mx-auto my-8 flex max-w-prose flex-col gap-4">
       {params.slug}
       <For each={blogPosts()}>
-        {(blogPost) => (
-          <li>
-            <A href={`/blog/${blogPost.data.slug}`}>
-              {blogPost.data.title} -- {blogPost.data.description}
-            </A>
-          </li>
-        )}
+        {(blogPost) => {
+          const date = new Intl.DateTimeFormat("en-GB", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          }).format(blogPost.data.date);
+
+          return (
+            <li>
+              <p class="text-sm text-slate-600">{`${date}`}</p>
+              <A href={`/blog/${blogPost.data.slug}`}>
+                <h2 class="text-2xl hover:text-sky-900">{blogPost.data.title}</h2>{" "}
+              </A>
+
+              <p class="prose">{blogPost.data.description}</p>
+            </li>
+          );
+        }}
       </For>
-    </div>
+    </ul>
   );
 }
