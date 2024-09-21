@@ -12,7 +12,7 @@ export default function BlogPost({ data }: { data: Promise<Post[]> }) {
   const params = useParams();
 
   return (
-    <div class="container mx-auto">
+    <div class="mx-4 max-w-prose md:mx-auto">
       <Show when={blogPosts()} fallback={<div>Loading...</div>}>
         {(() => {
           const post = blogPosts()?.find((post: Post) => post.data.slug === params.slug);

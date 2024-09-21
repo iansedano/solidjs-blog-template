@@ -1,7 +1,8 @@
 ---
-date: 2001-12-15T02:59:43.1Z
-description: Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Donec sed odio operae, eu vulputate felis rhoncus. **Salutantibus** vitae elit libero, a pharetra augue. Nihil hic munitissimus habendi senatus locus, nihil horum? A communi observantia non est recedendum.
+date: 2001-7-15T02:59:43.1Z
+description: Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua.
 slug: hello-worldo
+title: Hello `Worldo`
 ---
 
 A communi observantia non est recedendum. Vivamus sagittis lacus vel augue laoreet rutrum faucibus. Nihilne te nocturnum praesidium Palati, nihil urbis vigiliae.

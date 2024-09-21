@@ -40,6 +40,7 @@ export async function getMarkdownPosts(): Promise<Post[]> {
     .map((file) => {
       const filePath = path.join(CONTENT, file);
       const markdownFile = matter(fs.readFileSync(filePath, "utf8"));
+      const renderMd = (content) => DOMPurify.sanitize(md.render(content, { async: false }));
 
       const out = frontMatterSchema(markdownFile.data);
       if (out instanceof type.errors) {
@@ -48,8 +49,12 @@ export async function getMarkdownPosts(): Promise<Post[]> {
       } else {
         return {
           ...markdownFile,
-          data: frontMatterSchema(markdownFile.data),
-          content: DOMPurify.sanitize(md.render(markdownFile.content, { async: false })),
+          data: {
+            ...frontMatterSchema(markdownFile.data),
+            description: renderMd(markdownFile.data.description),
+            title: renderMd(markdownFile.data.title).replace(/<p>|<\/p>/g, ""), // remove outer <p> tags
+          },
+          content: renderMd(markdownFile.content),
           fileStem: path.basename(file, path.extname(file)),
         };
       }

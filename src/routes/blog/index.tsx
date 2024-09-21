@@ -10,7 +10,7 @@ export default function BlogPost() {
   const blogPosts = createAsync(() => getBlogPosts());
   const params = useParams();
   return (
-    <ul class="container mx-auto my-8 flex max-w-prose flex-col gap-4">
+    <ul class="mx-4 my-8 flex max-w-prose flex-col gap-4 md:mx-auto">
       {params.slug}
       <For each={blogPosts()}>
         {(blogPost) => {
@@ -22,12 +22,19 @@ export default function BlogPost() {
 
           return (
             <li>
-              <p class="text-sm text-slate-600">{`${date}`}</p>
-              <A href={`/blog/${blogPost.data.slug}`}>
-                <h2 class="text-2xl hover:text-sky-900">{blogPost.data.title}</h2>{" "}
+              <A href={`/blog/${blogPost.data.slug}`} class="md:flex md:items-start md:gap-4">
+                <p class="mt-1 w-44 flex-shrink-0 text-sm text-slate-600 md:text-xl">{`${date}`}</p>
+                <div>
+                  <div
+                    class="text-xl hover:text-sky-900 md:text-3xl"
+                    innerHTML={blogPost.data.title}
+                  ></div>{" "}
+                  <div
+                    class="prose text-sm md:text-base"
+                    innerHTML={blogPost.data.description}
+                  ></div>
+                </div>
               </A>
-
-              <p class="prose">{blogPost.data.description}</p>
             </li>
           );
         }}
