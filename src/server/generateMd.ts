@@ -5,12 +5,10 @@ import fs from "fs";
 import path from "path";
 import { JSDOM } from "jsdom";
 import createDOMPurify from "dompurify";
-import Shiki from "@shikijs/markdown-it";
-import MarkdownIt from "markdown-it";
 import getProjectRoot from "./getProjectRoot";
 import { type, ArkErrors } from "arktype";
+import { getMarkdownItInstance } from "./markdownParser";
 
-const SHIKI_THEME = "monokai";
 const CONTENT = path.join(getProjectRoot(), "src", "md");
 
 const window = new JSDOM("").window;
@@ -26,15 +24,12 @@ const frontMatterSchema = type({
   "keywords?": "string[]",
 });
 
-const md = MarkdownIt();
-const mdConfigPromise = (async () => md.use(await Shiki({ theme: SHIKI_THEME })))();
-
 export async function getMarkdownPosts(): Promise<Post[]> {
   const files = fs.readdirSync(CONTENT);
+  const mdParser = await getMarkdownItInstance();
 
-  await mdConfigPromise;
-
-  const renderMd = (content: string) => DOMPurify.sanitize(md.render(content, { async: false }));
+  const renderMd = (content: string) =>
+    DOMPurify.sanitize(mdParser.render(content, { async: false }));
   const pages = [];
 
   for (const file of files) {
