@@ -1,14 +1,10 @@
-import { useParams } from "@solidjs/router";
-import { Show, createResource } from "solid-js";
+import { useParams, createAsync } from "@solidjs/router";
+import { Show } from "solid-js";
 import PostComponent from "~/components/Post";
 import getBlogPosts from "~/server/getBlogPosts";
 
-export const route = {
-  load: () => getBlogPosts(),
-};
-
-export default function BlogPost({ data }: { data: Promise<Post[]> }) {
-  const [blogPosts] = createResource(() => data);
+export default function BlogPost() {
+  const blogPosts = createAsync(() => getBlogPosts());
   const params = useParams();
 
   return (
