@@ -3,16 +3,11 @@
 import matter from "gray-matter";
 import fs from "fs";
 import path from "path";
-import { JSDOM } from "jsdom";
-import createDOMPurify from "dompurify";
 import getProjectRoot from "./getProjectRoot";
 import { type, ArkErrors } from "arktype";
-import { getMarkdownItInstance } from "./markdownParser";
+import getMarkdownParser from "./markdownParser";
 
 const CONTENT = path.join(getProjectRoot(), "src", "md");
-
-const window = new JSDOM("").window;
-const DOMPurify = createDOMPurify(window);
 
 const frontMatterSchema = type({
   title: "string",
@@ -26,11 +21,8 @@ const frontMatterSchema = type({
 
 export async function getMarkdownPosts(): Promise<Post[]> {
   const files = fs.readdirSync(CONTENT);
-  const mdParser = await getMarkdownItInstance();
-
-  const renderMd = (content: string) =>
-    DOMPurify.sanitize(mdParser.render(content, { async: false }));
-  const pages = [];
+  const mdParser = await getMarkdownParser();
+  const pages: Post[] = [];
 
   for (const file of files) {
     try {
@@ -38,7 +30,7 @@ export async function getMarkdownPosts(): Promise<Post[]> {
       const post = contentToPost(
         fs.readFileSync(filePath, "utf8"),
         path.basename(file, path.extname(file)),
-        renderMd,
+        mdParser,
       );
 
       pages.push(post);
