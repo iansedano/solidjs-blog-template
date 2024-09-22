@@ -10,8 +10,9 @@ import MarkdownIt from "markdown-it";
 import getProjectRoot from "./getProjectRoot";
 import { type, ArkErrors } from "arktype";
 
-const ROOT = getProjectRoot();
-const CONTENT = path.join(ROOT, "src", "md");
+const SHIKI_THEME = "monokai";
+const CONTENT = path.join(getProjectRoot(), "src", "md");
+
 const window = new JSDOM("").window;
 const DOMPurify = createDOMPurify(window);
 
@@ -26,7 +27,7 @@ const frontMatterSchema = type({
 });
 
 const md = MarkdownIt();
-const mdConfigPromise = (async () => md.use(await Shiki({ theme: "monokai" })))();
+const mdConfigPromise = (async () => md.use(await Shiki({ theme: SHIKI_THEME })))();
 
 export async function getMarkdownPosts(): Promise<Post[]> {
   const files = fs.readdirSync(CONTENT);
