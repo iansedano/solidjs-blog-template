@@ -8,7 +8,7 @@ import createDOMPurify from "dompurify";
 import Shiki from "@shikijs/markdown-it";
 import MarkdownIt from "markdown-it";
 import getProjectRoot from "./getProjectRoot";
-import { type } from "arktype";
+import { type, ArkErrors } from "arktype";
 
 const ROOT = getProjectRoot();
 const CONTENT = path.join(ROOT, "src", "md");
@@ -26,38 +26,56 @@ const frontMatterSchema = type({
 });
 
 const md = MarkdownIt();
+const mdConfigPromise = (async () => md.use(await Shiki({ theme: "monokai" })))();
 
 export async function getMarkdownPosts(): Promise<Post[]> {
   const files = fs.readdirSync(CONTENT);
 
-  md.use(
-    await Shiki({
-      theme: "monokai",
-    }),
+  await mdConfigPromise;
+
+  const renderMd = (content: string) => DOMPurify.sanitize(md.render(content, { async: false }));
+  const pages = [];
+
+  for (const file of files) {
+    try {
+      const filePath = path.join(CONTENT, file);
+      const post = contentToPost(
+        fs.readFileSync(filePath, "utf8"),
+        path.basename(file, path.extname(file)),
+        renderMd,
+      );
+
+      pages.push(post);
+    } catch (e) {
+      console.error(`Error reading ${file}, ${e}`);
+      continue;
+    }
+  }
+
+  return pages;
+}
+
+const contentToPost = (
+  content: string,
+  fileStem: string,
+  renderMd: (content: string) => string,
+): Post => {
+  const markdownFile = matter(content);
+
+  const frontMatter: typeof frontMatterSchema.infer | ArkErrors = frontMatterSchema(
+    markdownFile.data,
   );
 
-  return files
-    .map((file) => {
-      const filePath = path.join(CONTENT, file);
-      const markdownFile = matter(fs.readFileSync(filePath, "utf8"));
-      const renderMd = (content) => DOMPurify.sanitize(md.render(content, { async: false }));
+  if (frontMatter instanceof type.errors) throw new Error(frontMatter.summary);
 
-      const out = frontMatterSchema(markdownFile.data);
-      if (out instanceof type.errors) {
-        console.error(`${filePath}: ${out.summary}`);
-        return undefined;
-      } else {
-        return {
-          ...markdownFile,
-          data: {
-            ...frontMatterSchema(markdownFile.data),
-            description: renderMd(markdownFile.data.description),
-            title: renderMd(markdownFile.data.title).replace(/<p>|<\/p>/g, ""), // remove outer <p> tags
-          },
-          content: renderMd(markdownFile.content),
-          fileStem: path.basename(file, path.extname(file)),
-        };
-      }
-    })
-    .filter((x) => x !== undefined);
-}
+  return {
+    ...markdownFile,
+    data: {
+      ...frontMatter,
+      description: renderMd(markdownFile.data.description),
+      title: renderMd(markdownFile.data.title).replace(/<p>|<\/p>/g, ""), // remove outer <p> tags
+    },
+    content: renderMd(markdownFile.content),
+    fileStem: fileStem,
+  };
+};
