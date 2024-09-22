@@ -7,7 +7,7 @@ import getProjectRoot from "./getProjectRoot";
 import { type, ArkErrors } from "arktype";
 import getMarkdownParser from "./markdownParser";
 
-const CONTENT = path.join(getProjectRoot(), "src", "md");
+const CONTENT_DIR = "./src/md";
 
 const frontMatterSchema = type({
   title: "string",
@@ -20,13 +20,13 @@ const frontMatterSchema = type({
 });
 
 export async function getMarkdownPosts(): Promise<Post[]> {
-  const files = fs.readdirSync(CONTENT);
+  const files = fs.readdirSync(path.join(getProjectRoot(), CONTENT_DIR));
   const mdParser = await getMarkdownParser();
   const pages: Post[] = [];
 
   for (const file of files) {
     try {
-      const filePath = path.join(CONTENT, file);
+      const filePath = path.join(CONTENT_DIR, file);
       const post = contentToPost(
         fs.readFileSync(filePath, "utf8"),
         path.basename(file, path.extname(file)),
@@ -35,7 +35,7 @@ export async function getMarkdownPosts(): Promise<Post[]> {
 
       pages.push(post);
     } catch (e) {
-      console.error(`Error reading ${file}, ${e}`);
+      console.error(`Error with ${file}, ${e}`);
       continue;
     }
   }
