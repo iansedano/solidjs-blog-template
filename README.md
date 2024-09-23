@@ -4,7 +4,8 @@ This is a personal blog template for SolidStart. It's a work in progress.
 
 The tentative requirements for this template are:
 
-- A simple, clean and adaptable design using Tailwind CSS.
+- A simple, clean and adaptable design for a basic blog.
+- Tailwind CSS, TypeScript, Prettier, and ESLint.
 - A markdown file for each blog post -- plain markdown files with YAML front matter (so it's easy to migrate to and from).
 - Front matter schema validation.
 - Syntax highlighting for code blocks.
